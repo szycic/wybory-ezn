@@ -5,7 +5,8 @@ const resMessage = document.querySelector('#res-message');
 
 voterIdInput.addEventListener('change', () => {
   const voterId = voterIdInput.value;
-  console.log(JSON.stringify({ voterId }));
+  const key = localStorage.getItem('key');
+
   const xhr = new XMLHttpRequest();
   xhr.open('POST', '/register-vote');
   xhr.setRequestHeader('Content-Type', 'application/json');
@@ -32,6 +33,6 @@ voterIdInput.addEventListener('change', () => {
       resMessage.classList.remove('success');
     }
   };
-  xhr.send(JSON.stringify({ voterId }));
+  xhr.send(JSON.stringify({ key, voterId }));
   voterIdInput.value = '';
 });

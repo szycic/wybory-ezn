@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const sqlite3 = require('sqlite3');
 const {open} = require('sqlite'); 
@@ -18,6 +19,11 @@ dbPromise.then(db => {
 });
 
 app.post('/register-vote', async (req, res) => {
+  if (req.body.key != process.env.KEY) {
+    res.status(401).send(JSON.stringify({message: 'Ustaw poprawny klucz'}));
+    return;
+  }
+
   const voterId = req.body.voterId;
 
   try {
